@@ -9,14 +9,14 @@ __license__ = "MIT"
 from haystac.workflow.scripts.utilities import PE
 
 
-def get_inputs_for_count_fastq_len(wildcards):
+def get_inputs_for_count_fasta_len(wildcards):
     if config["trim_adapters"]:
         if config["read_mode"] == PE:
             return (
-                config["sample_output_dir"] + f"/fastq_inputs/{config['read_mode']}/{wildcards.sample}_R1_adRm.fastq.gz"
+                config["sample_output_dir"] + f"/fastq_inputs/{config['read_mode']}/{wildcards.sample}_R1_adRm.fasta.gz"
             )
         else:
-            return config["sample_output_dir"] + f"/fastq_inputs/{config['read_mode']}/{wildcards.sample}_adRm.fastq.gz"
+            return config["sample_output_dir"] + f"/fastq_inputs/{config['read_mode']}/{wildcards.sample}_adRm.fasta.gz"
 
     else:
         return config["fastq_r1"] or config["fastq"]
@@ -24,7 +24,7 @@ def get_inputs_for_count_fastq_len(wildcards):
 
 rule count_fastq_length:
     input:
-        fastq=get_inputs_for_count_fastq_len,
+        fastq=get_inputs_for_count_fasta_len,
     output:
         config["sample_output_dir"] + "/fastq_inputs/meta/{sample}.size",
     message:

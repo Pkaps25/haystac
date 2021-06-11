@@ -17,7 +17,7 @@ SUBSAMPLE_FIXED_READS = 200000
 rule bowtie_align_db_single_end:
     input:
         fastq=(
-            config["sample_output_dir"] + "/fastq_inputs/{read_mode}/{sample}_adRm.fastq.gz"
+            config["sample_output_dir"] + "/fastq_inputs/{read_mode}/{sample}_adRm.fasta.gz"
             if config["trim_adapters"]
             else config["fastq"]
         ),
@@ -41,19 +41,19 @@ rule bowtie_align_db_single_end:
     conda:
         "../envs/bowtie2.yaml"
     shell:
-        "( bowtie2 -q --very-fast-local --threads {threads} -x {params.index} -U {input.fastq} "
+        "( bowtie2 -q --very-fast-local --threads {threads} -x {params.index} -f -U {input.fastq} "
         "| samtools sort -O bam -o {output.bam_file} ) 2> {log}"
 
 
 rule bowtie_align_db_paired_end:
     input:
         fastq_r1=(
-            config["sample_output_dir"] + "/fastq_inputs/PE/{sample}_R1_adRm.fastq.gz"
+            config["sample_output_dir"] + "/fastq_inputs/PE/{sample}_R1_adRm.fasta.gz"
             if config["trim_adapters"]
             else config["fastq_r1"]
         ),
         fastq_r2=(
-            config["sample_output_dir"] + "/fastq_inputs/PE/{sample}_R2_adRm.fastq.gz"
+            config["sample_output_dir"] + "/fastq_inputs/PE/{sample}_R2_adRm.fasta.gz"
             if config["trim_adapters"]
             else config["fastq_r2"]
         ),
@@ -77,7 +77,7 @@ rule bowtie_align_db_paired_end:
     conda:
         "../envs/bowtie2.yaml"
     shell:
-        "( bowtie2 -q --very-fast-local --threads {threads} -x {params.index} -1 {input.fastq_r1} -2 {input.fastq_r2} "
+        "( bowtie2 -q --very-fast-local --threads {threads} -x {params.index} -f -1 {input.fastq_r1} -2 {input.fastq_r2} "
         "| samtools sort -O bam -o {output.bam_file} ) 2> {log}"
 
 
