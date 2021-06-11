@@ -531,15 +531,13 @@ The haystac commands are:
         choice.add_argument(
             "--fastq-r1",
             help="Paired-end forward strand (R1) fastq input file.",
-            metavar="<path>",
-            type=FastqFile(),
+            metavar="<path>"
         )
 
         choice.add_argument(
             "--fastq-r2",
             help="Paired-end reverse strand (R2) fastq input file.",
-            metavar="<path>",
-            type=FastqFile(),
+            metavar="<path>"
         )
 
         choice.add_argument(
@@ -638,11 +636,11 @@ The haystac commands are:
 
         if config["trim_adapters"]:
             if config["read_mode"] == PE:
-                target_list.append(f"fastq_inputs/{config['read_mode']}/{config['sample_prefix']}_R1_adRm.fastq.gz")
+                target_list.append(f"fastq_inputs/{config['read_mode']}/{config['sample_prefix']}_R1_adRm.fasta.gz")
             elif config["read_mode"] == COLLAPSED:
-                target_list.append(f"fastq_inputs/{config['read_mode']}/{config['sample_prefix']}_adRm.fastq.gz")
+                target_list.append(f"fastq_inputs/{config['read_mode']}/{config['sample_prefix']}_adRm.fasta.gz")
             elif config["read_mode"] == SE:
-                target_list.append(f"fastq_inputs/{config['read_mode']}/{config['sample_prefix']}_adRm.fastq.gz")
+                target_list.append(f"fastq_inputs/{config['read_mode']}/{config['sample_prefix']}_adRm.fasta.gz")
 
         config_sample = os.path.join(args.sample_output_dir, "sample_config.yaml")
 

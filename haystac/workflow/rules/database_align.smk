@@ -41,7 +41,7 @@ rule bowtie_align_db_single_end:
     conda:
         "../envs/bowtie2.yaml"
     shell:
-        "( bowtie2 -q --very-fast-local --threads {threads} -x {params.index} -f -U {input.fastq} "
+        "( bowtie2 --very-fast-local --threads {threads} -x {params.index} -f -U {input.fastq} "
         "| samtools sort -O bam -o {output.bam_file} ) 2> {log}"
 
 
@@ -77,7 +77,7 @@ rule bowtie_align_db_paired_end:
     conda:
         "../envs/bowtie2.yaml"
     shell:
-        "( bowtie2 -q --very-fast-local --threads {threads} -x {params.index} -f -1 {input.fastq_r1} -2 {input.fastq_r2} "
+        "( bowtie2 -f --very-fast-local --threads {threads} -x {params.index} -1 {input.fastq_r1} -2 {input.fastq_r2} "
         "| samtools sort -O bam -o {output.bam_file} ) 2> {log}"
 
 

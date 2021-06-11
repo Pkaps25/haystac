@@ -13,7 +13,7 @@ rule adapterremoval_single_end:
     log:
         config["sample_output_dir"] + "/fastq_inputs/SE/{accession}_adRm.log",
     output:
-        config["sample_output_dir"] + "/fastq_inputs/SE/{accession}_adRm.fastq.gz",
+        config["sample_output_dir"] + "/fastq_inputs/SE/{accession}_adRm.fasta.gz",
     message:
         "Trimming sequencing adapters from file {input.fastq}."
     conda:
@@ -40,7 +40,7 @@ rule adapterremoval_collapsed:
     log:
         config["sample_output_dir"] + "/fastq_inputs/COLLAPSED/{accession}_adRm.log",
     output:
-        config["sample_output_dir"] + "/fastq_inputs/COLLAPSED/{accession}_adRm.fastq.gz",
+        config["sample_output_dir"] + "/fastq_inputs/COLLAPSED/{accession}_adRm.fasta.gz",
     message:
         "Trimming sequencing adapters and collapsing reads from files {input.fastq_r1} and {input.fastq_r2}."
     conda:
@@ -71,8 +71,8 @@ rule adapterremoval_paired_end:
     log:
         config["sample_output_dir"] + "/fastq_inputs/PE/{accession}_adRm.log",
     output:
-        fastq_r1=config["sample_output_dir"] + "/fastq_inputs/PE/{accession}_R1_adRm.fastq.gz",
-        fastq_r2=config["sample_output_dir"] + "/fastq_inputs/PE/{accession}_R2_adRm.fastq.gz",
+        fastq_r1=config["sample_output_dir"] + "/fastq_inputs/PE/{accession}_R1_adRm.fasta.gz",
+        fastq_r2=config["sample_output_dir"] + "/fastq_inputs/PE/{accession}_R2_adRm.fasta.gz",
     message:
         "Trimming sequencing adapters from files {input.fastq_r1} and {input.fastq_r2}."
     conda:
